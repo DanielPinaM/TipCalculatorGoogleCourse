@@ -18,6 +18,11 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         binding.calculateButton.setOnClickListener { calculateTip() }
+        binding.clearButton.setOnClickListener {
+            showTipResult(getString(R.string.tip_amount_tbd))
+            binding.costOfService.setText("")
+            binding.tipOptions.clearCheck()
+        }
     }
 
     private fun calculateTip(){
