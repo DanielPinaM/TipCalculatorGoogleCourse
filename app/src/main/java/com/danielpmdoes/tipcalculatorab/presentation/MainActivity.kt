@@ -1,12 +1,13 @@
-package com.danielpmdoes.tipcalculatorab
+package com.danielpmdoes.tipcalculatorab.presentation
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
+import com.danielpmdoes.tipcalculatorab.R
+import com.danielpmdoes.tipcalculatorab.data.Constants
 import com.danielpmdoes.tipcalculatorab.databinding.ActivityMainBinding
 import java.text.NumberFormat
 import kotlin.math.ceil
-import kotlin.math.roundToInt
 
 class MainActivity : AppCompatActivity() {
 
@@ -16,8 +17,15 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
-
-        binding.calculateButton.setOnClickListener { calculateTip() }
+        
+        initUI()
+    }
+    
+    private fun initUI() {
+        binding.calculateButton.setOnClickListener { 
+            calculateTip() 
+        }
+        
         binding.clearButton.setOnClickListener {
             showTipResult(getString(R.string.tip_amount_tbd))
             binding.costOfService.setText("")
@@ -35,10 +43,10 @@ class MainActivity : AppCompatActivity() {
         }
 
         val tipPercentage = when (binding.tipOptions.checkedRadioButtonId) {
-            binding.option20.id -> 0.20
-            binding.option18.id -> 0.18
-            binding.option15.id -> 0.15
-            else -> 0.10
+            binding.option20.id -> Constants.OPTION_20
+            binding.option18.id -> Constants.OPTION_18
+            binding.option15.id -> Constants.OPTION_15
+            else -> Constants.OPTION_10
         }
 
         var tip = tipPercentage * costOfService
